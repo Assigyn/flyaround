@@ -69,7 +69,9 @@ class Flight
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\User")
+     * @var string
+     *
+     * @ORM\Column(name="pilot", type="string", length=32)
      */
     private $pilot;
 
