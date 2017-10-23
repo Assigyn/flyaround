@@ -121,6 +121,11 @@ class User
     private $author;
 
     /**
+     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight",inversedBy="pilot")
+     */
+    private $flightPilot;
+
+    /**
      * Get id
      *
      * @return int

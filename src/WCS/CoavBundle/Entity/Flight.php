@@ -75,7 +75,7 @@ class Flight
     private $description;
 
     /**
-     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\User")
+     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\User",inversedBy="flightPilot")
      */
     private $pilot;
 
