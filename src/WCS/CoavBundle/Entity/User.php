@@ -115,6 +115,10 @@ class User
     */
     private $reservations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="reviewAuthor")
+     */
+    private $author;
 
     /**
      * Get id

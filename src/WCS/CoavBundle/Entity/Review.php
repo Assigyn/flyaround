@@ -34,7 +34,7 @@ class Review
     private $userRated;
 
     /**
-     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User", inversedBy="author")
      */
     private $reviewAuthor;
 

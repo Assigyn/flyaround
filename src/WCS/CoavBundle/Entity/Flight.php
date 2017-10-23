@@ -12,6 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Flight
 {
+
+    public function __toString()
+    {
+        return "De " . $this->departure . " à " . $this->arrival;
+    }
+
     /**
      * @var int
      *
@@ -84,6 +90,11 @@ class Flight
      * @ORM\Column(name="wasDone", type="boolean")
      */
     private $wasDone;
+
+    /**
+     * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Reservation",mappedBy="flight")
+     */
+    private $reservations;
 
 
     /**
