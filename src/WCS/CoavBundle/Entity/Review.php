@@ -35,6 +35,7 @@ class Review
 
     /**
      * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\User", inversedBy="author")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $reviewAuthor;
 
@@ -64,6 +65,16 @@ class Review
     }
 
     /**
+     * Get text
+     *
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
      * Set text
      *
      * @param string $text
@@ -78,13 +89,13 @@ class Review
     }
 
     /**
-     * Get text
+     * Get userRated
      *
-     * @return string
+     * @return int
      */
-    public function getText()
+    public function getUserRated()
     {
-        return $this->text;
+        return $this->userRated;
     }
 
     /**
@@ -102,13 +113,13 @@ class Review
     }
 
     /**
-     * Get userRated
+     * Get reviewAuthor
      *
      * @return int
      */
-    public function getUserRated()
+    public function getReviewAuthor()
     {
-        return $this->userRated;
+        return $this->reviewAuthor;
     }
 
     /**
@@ -126,13 +137,13 @@ class Review
     }
 
     /**
-     * Get reviewAuthor
+     * Get publicationDate
      *
-     * @return int
+     * @return \DateTime
      */
-    public function getReviewAuthor()
+    public function getPublicationDate()
     {
-        return $this->reviewAuthor;
+        return $this->publicationDate;
     }
 
     /**
@@ -150,13 +161,13 @@ class Review
     }
 
     /**
-     * Get publicationDate
+     * Get note
      *
-     * @return \DateTime
+     * @return int
      */
-    public function getPublicationDate()
+    public function getNote()
     {
-        return $this->publicationDate;
+        return $this->note;
     }
 
     /**
@@ -171,15 +182,5 @@ class Review
         $this->note = $note;
 
         return $this;
-    }
-
-    /**
-     * Get note
-     *
-     * @return int
-     */
-    public function getNote()
-    {
-        return $this->note;
     }
 }

@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class PlaneModel
 {
 
-    public function __toString()
-    {
-        return $this->manufacturer . " - " .$this->model;
-    }
-
     /**
      * @var int
      *
@@ -26,47 +21,53 @@ class PlaneModel
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="model", type="string", length=128)
      */
     private $model;
-
     /**
      * @var string
      *
      * @ORM\Column(name="manufacturer", type="string", length=64, nullable=true)
      */
     private $manufacturer;
-
     /**
      * @var int
      *
      * @ORM\Column(name="cruiseSpeed", type="smallint", nullable=true)
      */
     private $cruiseSpeed;
-
     /**
      * @var int
      *
      * @ORM\Column(name="planeNbSeats", type="smallint")
      */
     private $planeNbSeats;
-
     /**
      * @var bool
      *
      * @ORM\Column(name="isAvailable", type="boolean")
      */
     private $isAvailable;
-
     /**
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Flight", mappedBy="plane")
      */
     private $flight;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->flight = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->manufacturer . " - " . $this->model;
+    }
 
     /**
      * Get id
@@ -76,6 +77,16 @@ class PlaneModel
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get model
+     *
+     * @return string
+     */
+    public function getModel()
+    {
+        return $this->model;
     }
 
     /**
@@ -93,13 +104,13 @@ class PlaneModel
     }
 
     /**
-     * Get model
+     * Get manufacturer
      *
      * @return string
      */
-    public function getModel()
+    public function getManufacturer()
     {
-        return $this->model;
+        return $this->manufacturer;
     }
 
     /**
@@ -117,13 +128,13 @@ class PlaneModel
     }
 
     /**
-     * Get manufacturer
+     * Get cruiseSpeed
      *
-     * @return string
+     * @return int
      */
-    public function getManufacturer()
+    public function getCruiseSpeed()
     {
-        return $this->manufacturer;
+        return $this->cruiseSpeed;
     }
 
     /**
@@ -141,13 +152,13 @@ class PlaneModel
     }
 
     /**
-     * Get cruiseSpeed
+     * Get planeNbSeats
      *
      * @return int
      */
-    public function getCruiseSpeed()
+    public function getPlaneNbSeats()
     {
-        return $this->cruiseSpeed;
+        return $this->planeNbSeats;
     }
 
     /**
@@ -165,13 +176,13 @@ class PlaneModel
     }
 
     /**
-     * Get planeNbSeats
+     * Get isAvailable
      *
-     * @return int
+     * @return bool
      */
-    public function getPlaneNbSeats()
+    public function getIsAvailable()
     {
-        return $this->planeNbSeats;
+        return $this->isAvailable;
     }
 
     /**
@@ -186,23 +197,6 @@ class PlaneModel
         $this->isAvailable = $isAvailable;
 
         return $this;
-    }
-
-    /**
-     * Get isAvailable
-     *
-     * @return bool
-     */
-    public function getIsAvailable()
-    {
-        return $this->isAvailable;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->flight = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

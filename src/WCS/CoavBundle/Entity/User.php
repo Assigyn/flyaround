@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
 
-    public function __toString()
-    {
-        return $this->firstName . " " . $this->lastName;
-    }
-
     /**
      * @var int
      *
@@ -26,104 +21,102 @@ class User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="userName", type="string", length=32)
      */
     private $userName;
-
     /**
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=32)
      */
     private $firstName;
-
     /**
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=32)
      */
     private $lastName;
-
     /**
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=64)
      */
     private $email;
-
     /**
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=32)
      */
     private $phoneNumber;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="birthDate", type="date")
      */
     private $birthDate;
-
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime")
      */
     private $creationDate;
-
     /**
      * @var string
      *
      * @ORM\Column(name="role", type="string", length=16)
      */
     private $role;
-
     /**
      * @var int
      *
      * @ORM\Column(name="note", type="smallint", nullable=true)
      */
     private $note;
-
     /**
      * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Review")
      */
     private $reviews;
-
     /**
      * @var bool
      *
      * @ORM\Column(name="isACertifiedPilot", type="boolean")
      */
     private $isACertifiedPilot;
-
     /**
      * @var bool
      *
      * @ORM\Column(name="isActive", type="boolean")
      */
     private $isActive;
-
     /**
-    * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passenger")
-    * @ORM\JoinColumn(nullable=false)
-    */
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passenger")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $reservations;
-
     /**
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="reviewAuthor")
      */
     private $author;
-
     /**
-     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight",inversedBy="pilot")
+     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight",mappedBy="pilot")
      */
     private $flightPilot;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->firstName . " " . $this->lastName;
+    }
 
     /**
      * Get id
@@ -133,6 +126,16 @@ class User
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get userName
+     *
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->userName;
     }
 
     /**
@@ -150,13 +153,13 @@ class User
     }
 
     /**
-     * Get userName
+     * Get firstName
      *
      * @return string
      */
-    public function getUserName()
+    public function getFirstName()
     {
-        return $this->userName;
+        return $this->firstName;
     }
 
     /**
@@ -174,13 +177,13 @@ class User
     }
 
     /**
-     * Get firstName
+     * Get lastName
      *
      * @return string
      */
-    public function getFirstName()
+    public function getLastName()
     {
-        return $this->firstName;
+        return $this->lastName;
     }
 
     /**
@@ -198,13 +201,13 @@ class User
     }
 
     /**
-     * Get lastName
+     * Get email
      *
      * @return string
      */
-    public function getLastName()
+    public function getEmail()
     {
-        return $this->lastName;
+        return $this->email;
     }
 
     /**
@@ -222,13 +225,13 @@ class User
     }
 
     /**
-     * Get email
+     * Get phoneNumber
      *
      * @return string
      */
-    public function getEmail()
+    public function getPhoneNumber()
     {
-        return $this->email;
+        return $this->phoneNumber;
     }
 
     /**
@@ -246,13 +249,13 @@ class User
     }
 
     /**
-     * Get phoneNumber
+     * Get birthDate
      *
-     * @return string
+     * @return \DateTime
      */
-    public function getPhoneNumber()
+    public function getBirthDate()
     {
-        return $this->phoneNumber;
+        return $this->birthDate;
     }
 
     /**
@@ -270,13 +273,13 @@ class User
     }
 
     /**
-     * Get birthDate
+     * Get creationDate
      *
      * @return \DateTime
      */
-    public function getBirthDate()
+    public function getCreationDate()
     {
-        return $this->birthDate;
+        return $this->creationDate;
     }
 
     /**
@@ -294,13 +297,13 @@ class User
     }
 
     /**
-     * Get creationDate
+     * Get role
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreationDate()
+    public function getRole()
     {
-        return $this->creationDate;
+        return $this->role;
     }
 
     /**
@@ -318,13 +321,13 @@ class User
     }
 
     /**
-     * Get role
+     * Get note
      *
-     * @return string
+     * @return int
      */
-    public function getRole()
+    public function getNote()
     {
-        return $this->role;
+        return $this->note;
     }
 
     /**
@@ -342,13 +345,13 @@ class User
     }
 
     /**
-     * Get note
+     * Get reviews
      *
      * @return int
      */
-    public function getNote()
+    public function getReviews()
     {
-        return $this->note;
+        return $this->reviews;
     }
 
     /**
@@ -366,13 +369,13 @@ class User
     }
 
     /**
-     * Get reviews
+     * Get isACertifiedPilot
      *
-     * @return int
+     * @return bool
      */
-    public function getReviews()
+    public function getIsACertifiedPilot()
     {
-        return $this->reviews;
+        return $this->isACertifiedPilot;
     }
 
     /**
@@ -390,13 +393,13 @@ class User
     }
 
     /**
-     * Get isACertifiedPilot
+     * Get isActive
      *
      * @return bool
      */
-    public function getIsACertifiedPilot()
+    public function getIsActive()
     {
-        return $this->isACertifiedPilot;
+        return $this->isActive;
     }
 
     /**
@@ -411,23 +414,6 @@ class User
         $this->isActive = $isActive;
 
         return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return bool
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -462,5 +448,63 @@ class User
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Add author
+     *
+     * @param \WCS\CoavBundle\Entity\Review $author
+     *
+     * @return User
+     */
+    public function addAuthor(\WCS\CoavBundle\Entity\Review $author)
+    {
+        $this->author[] = $author;
+
+        return $this;
+    }
+
+    /**
+     * Remove author
+     *
+     * @param \WCS\CoavBundle\Entity\Review $author
+     */
+    public function removeAuthor(\WCS\CoavBundle\Entity\Review $author)
+    {
+        $this->author->removeElement($author);
+    }
+
+    /**
+     * Get author
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthor()
+    {
+        return $this->author;
+    }
+
+    /**
+     * Get flightPilot
+     *
+     * @return \WCS\CoavBundle\Entity\Flight
+     */
+    public function getFlightPilot()
+    {
+        return $this->flightPilot;
+    }
+
+    /**
+     * Set flightPilot
+     *
+     * @param \WCS\CoavBundle\Entity\Flight $flightPilot
+     *
+     * @return User
+     */
+    public function setFlightPilot(\WCS\CoavBundle\Entity\Flight $flightPilot = null)
+    {
+        $this->flightPilot = $flightPilot;
+
+        return $this;
     }
 }

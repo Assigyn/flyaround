@@ -36,14 +36,15 @@ class Reservation
     private $publicationDate;
 
     /**
-    * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\User", mappedBy="reservations")
-    * @ORM\JoinColumn(nullable=false)
-    */
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\User", mappedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
+     */
     private $passenger;
 
 
     /**
      * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Flight",inversedBy="reservations")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $flight;
 
@@ -54,6 +55,13 @@ class Reservation
      */
     private $wasDone;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->passenger = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -63,6 +71,16 @@ class Reservation
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get nbReservedSeats
+     *
+     * @return int
+     */
+    public function getNbReservedSeats()
+    {
+        return $this->nbReservedSeats;
     }
 
     /**
@@ -80,13 +98,13 @@ class Reservation
     }
 
     /**
-     * Get nbReservedSeats
+     * Get publicationDate
      *
-     * @return int
+     * @return \DateTime
      */
-    public function getNbReservedSeats()
+    public function getPublicationDate()
     {
-        return $this->nbReservedSeats;
+        return $this->publicationDate;
     }
 
     /**
@@ -104,13 +122,13 @@ class Reservation
     }
 
     /**
-     * Get publicationDate
+     * Get passenger
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getPublicationDate()
+    public function getPassenger()
     {
-        return $this->publicationDate;
+        return $this->passenger;
     }
 
     /**
@@ -128,13 +146,13 @@ class Reservation
     }
 
     /**
-     * Get passenger
+     * Get flight
      *
      * @return string
      */
-    public function getPassenger()
+    public function getFlight()
     {
-        return $this->passenger;
+        return $this->flight;
     }
 
     /**
@@ -152,13 +170,13 @@ class Reservation
     }
 
     /**
-     * Get flight
+     * Get wasDone
      *
-     * @return string
+     * @return bool
      */
-    public function getFlight()
+    public function getWasDone()
     {
-        return $this->flight;
+        return $this->wasDone;
     }
 
     /**
@@ -173,23 +191,6 @@ class Reservation
         $this->wasDone = $wasDone;
 
         return $this;
-    }
-
-    /**
-     * Get wasDone
-     *
-     * @return bool
-     */
-    public function getWasDone()
-    {
-        return $this->wasDone;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->passenger = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

@@ -13,11 +13,6 @@ use Doctrine\ORM\Mapping as ORM;
 class Terrain
 {
 
-    public function __toString()
-    {
-        return $this->icao . "-" . $this->name . "-" . $this->zipcode;
-    }
-
     /**
      * @var int
      *
@@ -26,73 +21,75 @@ class Terrain
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=128)
      */
     private $name;
-
     /**
      * @var string
      *
      * @ORM\Column(name="icao", type="string", length=4)
      */
     private $icao;
-
     /**
      * @var float
      *
      * @ORM\Column(name="latitude", type="float")
      */
     private $latitude;
-
     /**
      * @var float
      *
      * @ORM\Column(name="longitude", type="float")
      */
     private $longitude;
-
     /**
      * @var string
      *
-     * @ORM\Column(name="adress", type="string", length=128)
+     * @ORM\Column(name="address", type="string", length=128)
      */
-    private $adress;
-
+    private $address;
     /**
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=128)
      */
     private $city;
-
     /**
      * @var string
      *
      * @ORM\Column(name="zipcode", type="string", length=16)
      */
     private $zipcode;
-
     /**
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=64)
      */
     private $country;
-
     /**
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Flight", mappedBy="departure")
      */
     private $departures;
-
     /**
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Flight", mappedBy="arrival")
      */
     private $arrivals;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->departures = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->icao . "-" . $this->name . "-" . $this->zipcode;
+    }
 
     /**
      * Get id
@@ -102,6 +99,16 @@ class Terrain
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 
     /**
@@ -119,13 +126,13 @@ class Terrain
     }
 
     /**
-     * Get name
+     * Get icao
      *
      * @return string
      */
-    public function getName()
+    public function getIcao()
     {
-        return $this->name;
+        return $this->icao;
     }
 
     /**
@@ -143,13 +150,13 @@ class Terrain
     }
 
     /**
-     * Get icao
+     * Get latitude
      *
-     * @return string
+     * @return float
      */
-    public function getIcao()
+    public function getLatitude()
     {
-        return $this->icao;
+        return $this->latitude;
     }
 
     /**
@@ -167,13 +174,13 @@ class Terrain
     }
 
     /**
-     * Get latitude
+     * Get longitude
      *
      * @return float
      */
-    public function getLatitude()
+    public function getLongitude()
     {
-        return $this->latitude;
+        return $this->longitude;
     }
 
     /**
@@ -191,37 +198,37 @@ class Terrain
     }
 
     /**
-     * Get longitude
+     * Get address
      *
-     * @return float
+     * @return string
      */
-    public function getLongitude()
+    public function getaddress()
     {
-        return $this->longitude;
+        return $this->address;
     }
 
     /**
-     * Set adress
+     * Set address
      *
-     * @param string $adress
+     * @param string $address
      *
      * @return Terrain
      */
-    public function setAdress($adress)
+    public function setaddress($address)
     {
-        $this->adress = $adress;
+        $this->address = $address;
 
         return $this;
     }
 
     /**
-     * Get adress
+     * Get city
      *
      * @return string
      */
-    public function getAdress()
+    public function getCity()
     {
-        return $this->adress;
+        return $this->city;
     }
 
     /**
@@ -239,13 +246,13 @@ class Terrain
     }
 
     /**
-     * Get city
+     * Get zipcode
      *
      * @return string
      */
-    public function getCity()
+    public function getZipcode()
     {
-        return $this->city;
+        return $this->zipcode;
     }
 
     /**
@@ -263,13 +270,13 @@ class Terrain
     }
 
     /**
-     * Get zipcode
+     * Get country
      *
      * @return string
      */
-    public function getZipcode()
+    public function getCountry()
     {
-        return $this->zipcode;
+        return $this->country;
     }
 
     /**
@@ -284,23 +291,6 @@ class Terrain
         $this->country = $country;
 
         return $this;
-    }
-
-    /**
-     * Get country
-     *
-     * @return string
-     */
-    public function getCountry()
-    {
-        return $this->country;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->departures = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -371,4 +361,5 @@ class Terrain
     {
         return $this->arrivals;
     }
+
 }
