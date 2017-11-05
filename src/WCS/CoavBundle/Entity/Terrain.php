@@ -84,7 +84,9 @@ class Terrain
     public function __construct()
     {
         $this->departures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->arrivals = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
     public function __toString()
     {

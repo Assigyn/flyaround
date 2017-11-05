@@ -352,6 +352,7 @@ class Flight
     public function __construct()
     {
         $this->plane = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -392,15 +393,6 @@ class Flight
         return $this;
     }
 
-    /**
-     * Remove reservation
-     *
-     * @param \WCS\CoavBundle\Entity\Reservation $reservation
-     */
-    public function removeReservation(\WCS\CoavBundle\Entity\Reservation $reservation)
-    {
-        $this->reservations->removeElement($reservation);
-    }
 
     /**
      * Get reservations
@@ -410,5 +402,15 @@ class Flight
     public function getReservations()
     {
         return $this->reservations;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \WCS\CoavBundle\Entity\Reservation $reservation
+     */
+    public function removeReservation(\WCS\CoavBundle\Entity\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
     }
 }

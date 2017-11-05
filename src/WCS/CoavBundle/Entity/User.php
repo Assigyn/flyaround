@@ -12,7 +12,6 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class User
 {
-
     /**
      * @var int
      *
@@ -75,10 +74,7 @@ class User
      * @ORM\Column(name="note", type="smallint", nullable=true)
      */
     private $note;
-    /**
-     * @ORM\ManyToOne(targetEntity="WCS\CoavBundle\Entity\Review")
-     */
-    private $reviews;
+
     /**
      * @var bool
      *
@@ -92,7 +88,7 @@ class User
      */
     private $isActive;
     /**
-     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passenger")
+     * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
      * @ORM\JoinColumn(nullable=false)
      */
     private $reservations;
@@ -100,8 +96,9 @@ class User
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="reviewAuthor")
      */
     private $author;
+
     /**
-     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight",mappedBy="pilot")
+     * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight", mappedBy="pilot")
      */
     private $flightPilot;
 
@@ -111,6 +108,7 @@ class User
     public function __construct()
     {
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->author = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function __toString()
@@ -345,30 +343,6 @@ class User
     }
 
     /**
-     * Get reviews
-     *
-     * @return int
-     */
-    public function getReviews()
-    {
-        return $this->reviews;
-    }
-
-    /**
-     * Set reviews
-     *
-     * @param integer $reviews
-     *
-     * @return User
-     */
-    public function setReviews($reviews)
-    {
-        $this->reviews = $reviews;
-
-        return $this;
-    }
-
-    /**
      * Get isACertifiedPilot
      *
      * @return bool
@@ -484,15 +458,6 @@ class User
         return $this->author;
     }
 
-    /**
-     * Get flightPilot
-     *
-     * @return \WCS\CoavBundle\Entity\Flight
-     */
-    public function getFlightPilot()
-    {
-        return $this->flightPilot;
-    }
 
     /**
      * Set flightPilot
@@ -506,5 +471,15 @@ class User
         $this->flightPilot = $flightPilot;
 
         return $this;
+    }
+
+    /**
+     * Get flightPilot
+     *
+     * @return \WCS\CoavBundle\Entity\Flight
+     */
+    public function getFlightPilot()
+    {
+        return $this->flightPilot;
     }
 }
