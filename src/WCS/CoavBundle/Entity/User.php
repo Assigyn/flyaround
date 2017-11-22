@@ -3,14 +3,15 @@
 namespace WCS\CoavBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
 
 /**
  * User
  *
- * @ORM\Table(name="user")
+ * @ORM\Table(name="`user`")
  * @ORM\Entity(repositoryClass="WCS\CoavBundle\Repository\UserRepository")
  */
-class User
+class User extends BaseUser
 {
     /**
      * @var int
@@ -19,135 +20,86 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="userName", type="string", length=32)
-     */
-    private $userName;
+    protected $id;
     /**
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=32)
      */
-    private $firstName;
+    protected $firstName;
     /**
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=32)
      */
-    private $lastName;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=64)
-     */
-    private $email;
+    protected $lastName;
     /**
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=32)
      */
-    private $phoneNumber;
+    protected $phoneNumber;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="birthDate", type="date")
      */
-    private $birthDate;
+    protected $birthDate;
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="creationDate", type="datetime")
      */
-    private $creationDate;
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="role", type="string", length=16)
-     */
-    private $role;
+    protected $creationDate;
     /**
      * @var int
      *
      * @ORM\Column(name="note", type="smallint", nullable=true)
      */
-    private $note;
+    protected $note;
 
     /**
      * @var bool
      *
      * @ORM\Column(name="isACertifiedPilot", type="boolean")
      */
-    private $isACertifiedPilot;
+    protected $isACertifiedPilot;
     /**
      * @var bool
      *
      * @ORM\Column(name="isActive", type="boolean")
      */
-    private $isActive;
+    protected $isActive;
     /**
      * @ORM\ManyToMany(targetEntity="WCS\CoavBundle\Entity\Reservation", inversedBy="passengers")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $reservations;
+    protected $reservations;
     /**
      * @ORM\OneToMany(targetEntity="WCS\CoavBundle\Entity\Review", mappedBy="reviewAuthor")
      */
-    private $author;
+    protected $author;
 
     /**
      * @ORM\OneToOne(targetEntity="WCS\CoavBundle\Entity\Flight", mappedBy="pilot")
      */
-    private $flightPilot;
+    protected $flightPilot;
 
     /**
      * Constructor
      */
     public function __construct()
     {
+        parent::__construct();
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->author = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->creationDate = new \DateTime('now');
+        $this->isActive = true;
     }
 
     public function __toString()
     {
         return $this->firstName . " " . $this->lastName;
-    }
-
-    /**
-     * Get id
-     *
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get userName
-     *
-     * @return string
-     */
-    public function getUserName()
-    {
-        return $this->userName;
-    }
-
-    /**
-     * Set userName
-     *
-     * @param string $userName
-     *
-     * @return User
-     */
-    public function setUserName($userName)
-    {
-        $this->userName = $userName;
-
-        return $this;
     }
 
     /**
@@ -194,30 +146,6 @@ class User
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
 
         return $this;
     }
@@ -290,30 +218,6 @@ class User
     public function setCreationDate($creationDate)
     {
         $this->creationDate = $creationDate;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return string
-     */
-    public function getRole()
-    {
-        return $this->role;
-    }
-
-    /**
-     * Set role
-     *
-     * @param string $role
-     *
-     * @return User
-     */
-    public function setRole($role)
-    {
-        $this->role = $role;
 
         return $this;
     }

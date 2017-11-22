@@ -1,18 +1,30 @@
-<h1>Routes disponibles :</h1>
-<ul>
-<li>
-    <a href="{{ path('planemodel_index') }}">Voir les avions</a>
-</li>
-<li>
-    <a href="{{ path('reservation_index') }}">Voir les reservations</a>
-</li>
-<li>
-    <a href="{{ path('flight_index') }}">Voir les vols</a>
-</li>
-<li>
-    <a href="{{ path('terrain_index') }}">Voir les terrains</a>
-</li>
-    <li>
-        <a href="{{ path('review_index') }}">Voir les avis utilisateurs</a>
-    </li>
-</ul>
+{% extends 'base.html.twig' %}
+
+{% block title %}Flyaround - Our own Bla bla Fly {% endblock %}
+
+{% block body %}
+    <h1>Routes disponibles :</h1>
+    <ul>
+        <li>
+            <a href="{{ path('planemodel_index') }}">Voir les avions</a>
+        </li>
+        <li>
+            <a href="{{ path('reservation_index') }}">Voir les reservations</a>
+        </li>
+        <li>
+            <a href="{{ path('flight_index') }}">Voir les vols</a>
+        </li>
+        <li>
+            <a href="{{ path('terrain_index') }}">Voir les terrains</a>
+        </li>
+        <li>
+            <a href="{{ path('review_index') }}">Voir les avis utilisateurs</a>
+        </li>
+    </ul>
+
+    <h3>S'enregistrer</h3>
+    <ul>
+        <li><a href="{{ path('fos_user_security_login') }}">Me connecter</a></li>
+        <li><a href="{{ path('fos_user_registration_register') }}">M'inscrire</a></li>
+    </ul>
+{% endblock %}
