@@ -94,7 +94,6 @@ class User extends BaseUser
         $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
         $this->author = new \Doctrine\Common\Collections\ArrayCollection();
         $this->creationDate = new \DateTime('now');
-        $this->isActive = true;
     }
 
     public function __toString()
