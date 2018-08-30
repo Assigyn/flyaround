@@ -1,13 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('build/style.css') }}">
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <a class="navbar-brand" href="{{ path('wcs_coav_homepage') }}">Flyaround</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('planemodel_index') }}">Avions</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('reservation_index') }}">Réservations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('flight_index') }}">Vols</a>
+                </li>
+            </ul>
+            <form class="form-inline mt-2 mt-md-0">
+                <a href="{{ path('fos_user_registration_register') }}" id="registration-btn" class="btn btn-outline-danger my-2 my-sm-0">S'inscrire</a>
+                <a href="{{ path('fos_user_security_login') }}" class="btn btn-outline-success my-2 my-sm-0">Se Connecter</a>
+            </form>
+        </div>
+    </nav>
+
+    <div class="container">
         {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    </div>
+    <script src="{{ asset('build/app.js') }}"></script>
+    {% block javascripts %}{% endblock %}
+</body>
 </html>

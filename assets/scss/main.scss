@@ -1,0 +1,17 @@
+$brand-primary: darken(#428bca, 20%);
+$margin-m: 80px;
+$margin-s: 15px;
+
+body{
+  color: $brand-primary;
+}
+
+.container{
+  margin-top: $margin-m;
+}
+
+#registration-btn{
+  margin: 0 $margin-s;
+}
+
+@import "~bootstrap/scss/bootstrap";
